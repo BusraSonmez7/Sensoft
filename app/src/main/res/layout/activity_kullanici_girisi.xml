@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".KullaniciGirisi">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="0dp"
+        android:layout_height="251dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sensoft_logo2" />
+
+    <EditText
+        android:id="@+id/emailgiris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/ic_action_kullanici_girisi"
+        android:ems="10"
+        android:hint=" Email girin"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/krem"
+        android:textColorHint="@color/krem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+
+    <EditText
+        android:id="@+id/sifregiris"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawableLeft="@drawable/ic_action_kullanici_girisi_sifre"
+        android:ems="10"
+        android:hint=" Şifre girin"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/krem"
+        android:textColorHint="@color/krem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailgiris" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/signInButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/emailgiris"
+        app:layout_constraintStart_toStartOf="@+id/emailgiris"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewUye"
+        android:layout_width="234dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="30dp"
+        android:elevation="10dp"
+        app:cardBackgroundColor="@color/toolbarrenk"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/sifregiris"
+        app:layout_constraintStart_toStartOf="@+id/sifregiris"
+        app:layout_constraintTop_toBottomOf="@+id/btnsifreunuttum">
+
+        <RelativeLayout
+            android:id="@+id/rlt_buton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:onClick="GirisYap"
+                android:layout_centerInParent="true"
+                android:text="GİRİŞ YAP"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewUye">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Bir hesabın yok mu?"
+            android:textColor="@color/krem"
+            app:layout_constraintStart_toStartOf="@+id/cardViewUye"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUye" />
+
+        <TextView
+            android:id="@+id/btnuyeol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Üye ol"
+            android:onClick="UyeOl"
+            android:textColor="@color/toolbarrenk"
+            app:layout_constraintEnd_toEndOf="@+id/cardViewUye"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/cardViewUye" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnsifreunuttum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:onClick="SifremiUnuttum"
+        android:text="Şifremi unuttum"
+        android:textColor="@color/krem"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/sifregiris"
+        app:layout_constraintTop_toBottomOf="@+id/sifregiris" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

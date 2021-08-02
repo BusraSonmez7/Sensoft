@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_anasayfa"
+    android:icon="@drawable/ic_baseline_home_24"
+    android:title="Anasayfa"/>
+    <item android:id="@+id/nav_bildirim"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="Bildirim"/>
+    <item android:id="@+id/nav_mesaj"
+        android:icon="@drawable/ic_baseline_message_24"
+        android:title="Mesajlaşma"/>
+    <item android:id="@+id/nav_hakkinda"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="Hakkında"/>
+</menu>

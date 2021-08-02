@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sensoft_nedir"
+                android:background="@color/black"/>
+
+            <TextView
+                android:id="@+id/sensoftnedir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="12sp"
+                android:padding="15dp"
+                android:text="Bu projede duyma engelli vatandaşlarımızın doğal afet durumlarından nasıl haberdar edileceği konusu ele alınmış ve bunun yansıra yine duyma engelli vatandaşlarımızın yaşam  kalitesini nasıl arttırabilir sorularına yanıt verebilecek yenilikçi ve teknolojik çözüm aranmıştır. Bu tür sorunların temelini öğrenmek ve bizim bildiğimizin dışında duyma engelli  vatandaşlarımızın başka ne gibi sorunlar yaşadıklarını daha iyi deneyimleyebilmek adına 4  duyma engelli vatandaş ile görüşülmüştür. Bu görüşmeler sonucunda duyma engelli  vatandaşlarımızın; Doğal afet durumlarında toplumsal uyarıları alamadıkları yani siren sesi zil  gibi uyarıları işitemedikleri için tedbirsiz yakalanmaktadırlar. Bireysel yaşam alanlarında  örneğin eve hırsız girmesi durumunda alarm da çalsa kapı da kırılsa duymayacakları için  savunmasız durumda kalmaktadırlar. Sokakta köpek havlasa ya da tehlikeli bir durum oluşsa  işitemeyip mağdur olmaktadırlar. Arkalarından bir arkadaşları veya bir vatandaş seslense  duymadıkları için sosyal kısıt yaşamakta ve mağdur olmaktadırlar. Uyanmak için alarm kurduklarında bile kendilerine özel bir alarm modu bulunmamaktadır. Kendisinin duyma  engelli olduğunu bilmeyen ya da unutarak sesli arayanların aramalarına yanıt veremediği için  kendisini kötü hissetmektedirler.Bu sebeplerden dolayı duyma engelli vatandaşlarımıza yönelik  bir uygulama tasarlamaya karar verdik. Tasarlanan bu mobil uygulama sayesinde 24 saat duyma engelli kullanıcı için etrafındaki sesleri dinleyip yorumlayarak anlamlı hale getirecek olan bu uygulama aynı zamanda da akıllı bileklik veya akıllı saat ile de duyma engelli kullanıcıyı titreşim ile bilgilendirecek ve tüm sesli uyarıları onun için duyulabilir hale getirecektir."
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintTop_toBottomOf="@id/imageView"
+                android:background="@color/siyah_transparan"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

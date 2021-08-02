@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BildirimEklemeActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/resimekle"
+                android:layout_width="130dp"
+                android:layout_height="132dp"
+                android:layout_marginTop="84dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/image_install1" />
+
+            <TextView
+                android:id="@+id/txtbaslik"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:text="Bildirim Başlığı"
+                android:textColor="@color/toolbarrenk"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resimekle" />
+
+            <EditText
+                android:id="@+id/edtbaslik"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Baslik girin"
+                android:text=""
+                android:textColor="@color/toolbarrenk"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/txtbaslik"
+                app:layout_constraintStart_toStartOf="@+id/txtbaslik"
+                app:layout_constraintTop_toBottomOf="@+id/txtbaslik" />
+            <TextView
+                android:id="@+id/txtaciklama"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Bildirim İçeriği"
+                android:textColor="@color/toolbarrenk"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtbaslik" />
+
+            <EditText
+                android:id="@+id/edtaciklama"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="içerik girin"
+                android:text=""
+                android:textColor="@color/toolbarrenk"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/txtaciklama"
+                app:layout_constraintStart_toStartOf="@+id/txtaciklama"
+                app:layout_constraintTop_toBottomOf="@+id/txtaciklama" />
+
+            <TextView
+                android:id="@+id/txtkelime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Algılanması İstenen Kelime veya Cümle"
+                android:textColor="@color/toolbarrenk"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtaciklama" />
+
+            <EditText
+                android:id="@+id/edtkelime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Kelime veya cümle girin"
+                android:text=""
+                android:textColor="@color/toolbarrenk"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/txtkelime"
+                app:layout_constraintStart_toStartOf="@+id/txtkelime"
+                app:layout_constraintTop_toBottomOf="@+id/txtkelime" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewUye"
+                android:layout_width="0dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="30dp"
+                android:elevation="10dp"
+                app:cardBackgroundColor="@color/toolbarrenk"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/edtkelime"
+                app:layout_constraintStart_toStartOf="@+id/edtkelime"
+                app:layout_constraintTop_toBottomOf="@+id/edtkelime">
+
+                <RelativeLayout
+                    android:id="@+id/rlt_buton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:onClick="Kaydet"
+                        android:layout_centerInParent="true"
+                        android:text="GİRİŞ YAP"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
