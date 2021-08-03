@@ -1,13 +1,13 @@
-package com.sensofttakimi.sensoft;
-
-import android.content.Context;
+package com.sensofttakimi.sensoft.FragmentHakkinda;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.sensofttakimi.sensoft.FragmentHakkinda.FragmentHakkindaSensoftNedir;
+import com.sensofttakimi.sensoft.FragmentHakkinda.FragmentHakkindaTakim;
 
 import org.jetbrains.annotations.NotNull;
 

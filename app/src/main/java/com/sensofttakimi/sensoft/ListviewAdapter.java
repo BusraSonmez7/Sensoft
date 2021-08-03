@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.sensofttakimi.sensoft.Bildirimler.Bildirimler;
+
 import java.util.ArrayList;
 
 public class ListviewAdapter extends BaseAdapter implements Filterable {

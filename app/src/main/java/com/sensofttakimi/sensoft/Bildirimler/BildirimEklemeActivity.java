@@ -1,9 +1,8 @@
-package com.sensofttakimi.sensoft;
+package com.sensofttakimi.sensoft.Bildirimler;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -33,10 +30,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.sensofttakimi.sensoft.UygulamaSayfasi;
 import com.sensofttakimi.sensoft.databinding.ActivityBildirimEklemeBinding;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -92,18 +94,19 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                             FirebaseUser user = auth.getCurrentUser();
                             String email = user.getEmail();
 
+
                             HashMap<String,Object> bildirimVeri = new HashMap<>();
                             bildirimVeri.put("baslik",baslik);
                             bildirimVeri.put("aciklama",aciklama);
                             bildirimVeri.put("ses",ses);
                             bildirimVeri.put("resim",downloadUrl);
                             bildirimVeri.put("kullanici",email);
-                            bildirimVeri.put("tarih", FieldValue.serverTimestamp());
+                            bildirimVeri.put("tarih", "dddd");
 
-                            firebaseFirestore.collection("bildirim").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Intent intent = new Intent(getApplicationContext(),UygulamaSayfasi.class);
+                                    Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();

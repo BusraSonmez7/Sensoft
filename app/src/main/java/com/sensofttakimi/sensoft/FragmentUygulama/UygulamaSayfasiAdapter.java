@@ -1,9 +1,14 @@
-package com.sensofttakimi.sensoft;
+package com.sensofttakimi.sensoft.FragmentUygulama;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.sensofttakimi.sensoft.FragmentUygulama.AnasayfaFragment;
+import com.sensofttakimi.sensoft.FragmentUygulama.BildirimFragment;
+import com.sensofttakimi.sensoft.FragmentUygulama.HakkindaFragment;
+import com.sensofttakimi.sensoft.FragmentUygulama.MesajFragment;
 
 import org.jetbrains.annotations.NotNull;
 
