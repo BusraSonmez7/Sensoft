@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SenSoft">
-        <activity android:name=".BildirimIcerigi"></activity>
-        <activity android:name=".BildirimEklemeActivity" />
+        <activity android:name=".Bildirimler.BildirimIcerigi"></activity>
+        <activity android:name=".Bildirimler.BildirimEklemeActivity" />
         <activity android:name=".KullaniciGirisi" />
         <activity android:name=".UygulamaSayfasi" />
         <activity android:name=".SensoftHakkinda" />

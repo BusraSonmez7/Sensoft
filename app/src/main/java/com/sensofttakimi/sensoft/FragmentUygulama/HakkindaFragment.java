@@ -1,6 +1,5 @@
-package com.sensofttakimi.sensoft;
+package com.sensofttakimi.sensoft.FragmentUygulama;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sensofttakimi.sensoft.R;
-import com.sensofttakimi.sensoft.SensoftHakkinda;
+import com.sensofttakimi.sensoft.FragmentHakkinda.SimpleFragmentPageAdapter;
 
 import org.jetbrains.annotations.NotNull;
 

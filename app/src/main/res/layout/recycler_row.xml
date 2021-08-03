@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_weight="3"
+    android:background="@color/kutu"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
+
+    <ImageView
+        android:id="@+id/list_resim"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/list_tarih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="text"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/antrasit"/>
+        <TextView
+            android:id="@+id/list_baslik"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="başlık"
+            android:textSize="18dp"
+            android:textColor="@color/toolbarrenk"/>
+        <TextView
+            android:id="@+id/list_aciklama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="açıklama"
+            android:textSize="14dp"
+            android:textColor="@color/antrasit"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

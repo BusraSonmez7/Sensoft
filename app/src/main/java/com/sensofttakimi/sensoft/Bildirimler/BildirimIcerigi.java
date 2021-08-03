@@ -1,8 +1,10 @@
-package com.sensofttakimi.sensoft;
+package com.sensofttakimi.sensoft.Bildirimler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.sensofttakimi.sensoft.R;
 
 public class BildirimIcerigi extends AppCompatActivity {
 

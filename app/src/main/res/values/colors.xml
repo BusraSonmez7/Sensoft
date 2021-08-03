@@ -13,5 +13,7 @@
     <color name="siyah_transparan">#9A000000</color>
     <color name="kutu">#CBEFEF</color>
     <color name="kutukelime">#FFB300</color>
+    <color name="antrasit">#4A4946</color>
+    <color name="toolbarrenk2">#7ACCCC</color>
 
 </resources>

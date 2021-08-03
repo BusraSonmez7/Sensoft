@@ -1,4 +1,4 @@
-package com.sensofttakimi.sensoft;
+package com.sensofttakimi.sensoft.FragmentUygulama;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
