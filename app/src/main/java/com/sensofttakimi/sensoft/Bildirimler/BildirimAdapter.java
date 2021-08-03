@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sensofttakimi.sensoft.databinding.RecyclerRowBinding;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +33,7 @@ public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.Bildir
         holder.recyclerRowBinding.listBaslik.setText(bildirimlerArrayList.get(position).baslik);
         holder.recyclerRowBinding.listAciklama.setText(bildirimlerArrayList.get(position).aciklama);
         holder.recyclerRowBinding.listTarih.setText(bildirimlerArrayList.get(position).tarih.toString());
+        Picasso.get().load(bildirimlerArrayList.get(position).resim).into(holder.recyclerRowBinding.listResim);
     }
 
     @Override

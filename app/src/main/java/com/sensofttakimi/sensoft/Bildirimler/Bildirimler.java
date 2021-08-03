@@ -10,9 +10,10 @@ public class Bildirimler {
     public String resim;
     public String tarih;
 
-    public Bildirimler(String baslik, String resim,String tarih) {
+    public Bildirimler(String baslik, String resim, String aciklama,String tarih) {
         this.baslik = baslik;
         this.resim = resim;
         this.tarih = tarih;
+        this.aciklama = aciklama;
     }
 }

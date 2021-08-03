@@ -4,7 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginTop="10dp"
-    android:layout_weight="3">
+    android:layout_weight="3"
+    android:background="@color/kutu"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
 
     <ImageView
         android:id="@+id/list_resim"

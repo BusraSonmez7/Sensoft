@@ -89,8 +89,9 @@ public class AnasayfaFragment extends Fragment {
                         String baslik = (String)  data.get("baslik");
                         String resim = (String)  data.get("resim");
                         String tarih = (String)  data.get("tarih");
+                        String aciklama = (String)  data.get("aciklama");
 
-                        Bildirimler bildirimler = new Bildirimler(baslik,resim,tarih);
+                        Bildirimler bildirimler = new Bildirimler(baslik, resim, aciklama, tarih);
                         bildirimlerArrayList.add(bildirimler);
                     }
 
