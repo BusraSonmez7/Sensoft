@@ -97,6 +97,7 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                             bildirimVeri.put("aciklama",aciklama);
                             bildirimVeri.put("ses",ses);
                             bildirimVeri.put("resim",downloadUrl);
+                            bildirimVeri.put("kullanici",email);
                             bildirimVeri.put("tarih", FieldValue.serverTimestamp());
 
                             firebaseFirestore.collection("bildirim").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
