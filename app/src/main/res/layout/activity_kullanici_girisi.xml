@@ -121,6 +121,8 @@
             app:layout_constraintEnd_toEndOf="@+id/cardViewUye"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/cardViewUye" />
+
+
     </LinearLayout>
 
     <TextView
@@ -134,5 +136,15 @@
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="@+id/sifregiris"
         app:layout_constraintTop_toBottomOf="@+id/sifregiris" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="UyeOl"
+        android:text="Üye Ol"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="504dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

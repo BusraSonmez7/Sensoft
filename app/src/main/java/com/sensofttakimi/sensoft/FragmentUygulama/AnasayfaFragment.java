@@ -11,17 +11,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.sensofttakimi.sensoft.Bildirimler.BildirimAdapter;
 import com.sensofttakimi.sensoft.Bildirimler.BildirimEklemeActivity;
 import com.sensofttakimi.sensoft.Bildirimler.Bildirimler;
@@ -39,9 +44,12 @@ public class AnasayfaFragment extends Fragment {
 
     private FirebaseAuth auth;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
 
     ArrayList<Bildirimler> bildirimlerArrayList;
     private View mview;
+    private View view;
     private RecyclerView recylerView;
 
     BildirimAdapter bildirimAdapter;
@@ -59,7 +67,7 @@ public class AnasayfaFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         getData();
 
-        recylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recylerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false));
         bildirimAdapter = new BildirimAdapter(bildirimlerArrayList);
         recylerView.setAdapter(bildirimAdapter);
 
@@ -84,15 +92,20 @@ public class AnasayfaFragment extends Fragment {
                 }
 
                 if(value != null){
+                    FirebaseUser user = auth.getCurrentUser();
+                    String email = user.getEmail();
                     for(DocumentSnapshot snapshot : value.getDocuments()){
                         HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
-                        String baslik = (String)  data.get("baslik");
-                        String resim = (String)  data.get("resim");
-                        String tarih = (String)  data.get("tarih");
-                        String aciklama = (String)  data.get("aciklama");
+                        if(email.matches(data.get("kullanici").toString())){
+                            String baslik = (String)  data.get("baslik");
+                            String resim = (String)  data.get("resim");
+                            String tarih = (String)  data.get("tarih");
+                            String aciklama = (String)  data.get("aciklama");
 
-                        Bildirimler bildirimler = new Bildirimler(baslik, resim, aciklama, tarih);
-                        bildirimlerArrayList.add(bildirimler);
+                            Bildirimler bildirimler = new Bildirimler(baslik, resim, aciklama, tarih);
+                            bildirimlerArrayList.add(bildirimler);
+                        }
+
                     }
 
                     bildirimAdapter.notifyDataSetChanged();

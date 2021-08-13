@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.BildirimHolder> {
 
     private ArrayList<Bildirimler> bildirimlerArrayList;
+
     public BildirimAdapter(ArrayList<Bildirimler> bildirimlerArrayList){
         this.bildirimlerArrayList = bildirimlerArrayList;
     }
@@ -31,8 +32,8 @@ public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.Bildir
     @Override
     public void onBindViewHolder(@NonNull BildirimAdapter.BildirimHolder holder, int position) {
         holder.recyclerRowBinding.listBaslik.setText(bildirimlerArrayList.get(position).baslik);
-        holder.recyclerRowBinding.listAciklama.setText(bildirimlerArrayList.get(position).aciklama);
-        holder.recyclerRowBinding.listTarih.setText(bildirimlerArrayList.get(position).tarih.toString());
+        //holder.recyclerRowBinding.listAciklama.setText(bildirimlerArrayList.get(position).aciklama);
+        //holder.recyclerRowBinding.listTarih.setText(bildirimlerArrayList.get(position).tarih.toString());
         Picasso.get().load(bildirimlerArrayList.get(position).resim).into(holder.recyclerRowBinding.listResim);
     }
 
@@ -48,5 +49,10 @@ public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.Bildir
             super(recyclerRowBinding.getRoot());
             this.recyclerRowBinding = recyclerRowBinding;
         }
+    }
+    public void removeItem(int position) {
+        bildirimlerArrayList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, bildirimlerArrayList.size());
     }
 }
