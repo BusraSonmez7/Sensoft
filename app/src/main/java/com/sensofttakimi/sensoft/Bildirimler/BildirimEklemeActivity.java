@@ -5,12 +5,15 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,8 +29,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -87,6 +94,10 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         String downloadUrl = uri.toString();
 
+                        Date simdikiZaman = new Date();
+                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+                        System.out.println(df.format(simdikiZaman));
+
                         String baslik = binding.edtbaslik.getText().toString();
                         String aciklama = binding.edtaciklama.getText().toString();
                         String ses = binding.edtkelime.getText().toString();
@@ -94,30 +105,38 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                         FirebaseUser user = auth.getCurrentUser();
                         String email = user.getEmail();
 
-
                         HashMap<String,Object> bildirimVeri = new HashMap<>();
                         bildirimVeri.put("baslik",baslik);
                         bildirimVeri.put("aciklama",aciklama);
                         bildirimVeri.put("ses",ses);
                         bildirimVeri.put("resim",downloadUrl);
                         bildirimVeri.put("kullanici",email);
-                        bildirimVeri.put("tarih", "dddd");
+                        bildirimVeri.put("tarih", df.format(simdikiZaman));
 
-                        firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull @NotNull Exception e) {
-                                Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedilemedi",Toast.LENGTH_LONG).show();
+                        getData();
 
-                            }
-                        });
+                        if(isBaslik == true){
+                            firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedildi"+" "+isBaslik,Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedilemedi",Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Daha önce aynı başlıkta bildirim eklemişsiniz. Lütfen farklı bir başlık giriniz!",Toast.LENGTH_LONG).show();
+                        }
+
 
                     }
                 });
@@ -132,9 +151,9 @@ public class BildirimEklemeActivity extends AppCompatActivity {
     }
 
     public void Kaydet(View view){
-        if(imageData !=null){
+        if(this.imageData !=null){
 
-            VerileriEkle(imageData);
+            VerileriEkle(this.imageData);
 
 //            UUID uuid = UUID.randomUUID();
 //            String imageName = "images/"+uuid+".jpg";
@@ -190,6 +209,12 @@ public class BildirimEklemeActivity extends AppCompatActivity {
 //                    Toast.makeText(BildirimEklemeActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
 //                }
 //            });
+        }
+        else{
+            this.imageData = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                    "://" + getResources().getResourcePackageName(R.drawable.notification)
+                    + '/' + getResources().getResourceTypeName(R.drawable.notification) + '/' + getResources().getResourceEntryName(R.drawable.notification) );
+            VerileriEkle(imageData);
         }
     }
 
@@ -265,4 +290,42 @@ public class BildirimEklemeActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    boolean isBaslik;
+    private void getData(){
+        firebaseFirestore.collection("Bildirimler").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error !=null){
+                    Toast.makeText(getApplicationContext(),error.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+                }
+
+                if(value != null){
+                    FirebaseUser user = auth.getCurrentUser();
+                    String email = user.getEmail();
+                    String baslik = binding.edtbaslik.getText().toString();
+
+
+                    for(DocumentSnapshot snapshot : value.getDocuments()){
+                        HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
+                        if(email.equals(data.get("kullanici").toString())){
+                            if(baslik.equals(data.get("baslik").toString())){
+                                isBaslik = false;
+                                break;
+                            }
+                            else {
+                                isBaslik = true;
+                            }
+                        }
+                        else {
+
+                        }
+
+                    }
+                }
+            }
+        });
+    }
+
 }
