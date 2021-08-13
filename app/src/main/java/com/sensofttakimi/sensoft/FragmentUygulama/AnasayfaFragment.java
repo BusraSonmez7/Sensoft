@@ -29,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.sensofttakimi.sensoft.Bildirimler.BildirimAdapter;
 import com.sensofttakimi.sensoft.Bildirimler.BildirimEklemeActivity;
+import com.sensofttakimi.sensoft.Bildirimler.BildirimIcerigi;
 import com.sensofttakimi.sensoft.Bildirimler.Bildirimler;
 import com.sensofttakimi.sensoft.R;
 
@@ -59,7 +60,7 @@ public class AnasayfaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         mview = inflater.inflate(R.layout.fragment_anasayfa,container,false);
-        recylerView = mview.findViewById(R.id.recylerView);
+        this.recylerView = mview.findViewById(R.id.recylerView);
         this.btnekle = mview.findViewById(R.id.eklebuton);
 
         bildirimlerArrayList = new ArrayList<>();
@@ -68,13 +69,20 @@ public class AnasayfaFragment extends Fragment {
         getData();
 
         recylerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false));
-        bildirimAdapter = new BildirimAdapter(bildirimlerArrayList);
+        bildirimAdapter = new BildirimAdapter(bildirimlerArrayList,getActivity());
         recylerView.setAdapter(bildirimAdapter);
 
         btnekle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BildirimEklemeActivity.class);
+                startActivity(intent);
+            }
+        });
+        recylerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),BildirimIcerigi.class);
                 startActivity(intent);
             }
         });
@@ -96,13 +104,11 @@ public class AnasayfaFragment extends Fragment {
                     String email = user.getEmail();
                     for(DocumentSnapshot snapshot : value.getDocuments()){
                         HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
-                        if(email.matches(data.get("kullanici").toString())){
+                        if(email.equals(data.get("kullanici").toString())){
                             String baslik = (String)  data.get("baslik");
                             String resim = (String)  data.get("resim");
-                            String tarih = (String)  data.get("tarih");
-                            String aciklama = (String)  data.get("aciklama");
 
-                            Bildirimler bildirimler = new Bildirimler(baslik, resim, aciklama, tarih);
+                            Bildirimler bildirimler = new Bildirimler(baslik, resim);
                             bildirimlerArrayList.add(bildirimler);
                         }
 

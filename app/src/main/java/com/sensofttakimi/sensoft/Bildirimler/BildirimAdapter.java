@@ -1,5 +1,7 @@
 package com.sensofttakimi.sensoft.Bildirimler;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sensofttakimi.sensoft.databinding.RecyclerRowBinding;
 import com.squareup.picasso.Picasso;
 
@@ -17,9 +21,11 @@ import java.util.ArrayList;
 public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.BildirimHolder> {
 
     private ArrayList<Bildirimler> bildirimlerArrayList;
+    public Context context;
 
-    public BildirimAdapter(ArrayList<Bildirimler> bildirimlerArrayList){
+    public BildirimAdapter(ArrayList<Bildirimler> bildirimlerArrayList, Context context){
         this.bildirimlerArrayList = bildirimlerArrayList;
+        this.context = context;
     }
 
     @NonNull
@@ -35,6 +41,14 @@ public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.Bildir
         //holder.recyclerRowBinding.listAciklama.setText(bildirimlerArrayList.get(position).aciklama);
         //holder.recyclerRowBinding.listTarih.setText(bildirimlerArrayList.get(position).tarih.toString());
         Picasso.get().load(bildirimlerArrayList.get(position).resim).into(holder.recyclerRowBinding.listResim);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(),BildirimIcerigi.class);
+                intent.putExtra("baslik",holder.recyclerRowBinding.listBaslik.getText().toString());
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -48,7 +62,9 @@ public class BildirimAdapter extends RecyclerView.Adapter<BildirimAdapter.Bildir
         public BildirimHolder(RecyclerRowBinding recyclerRowBinding) {
             super(recyclerRowBinding.getRoot());
             this.recyclerRowBinding = recyclerRowBinding;
+
         }
+
     }
     public void removeItem(int position) {
         bildirimlerArrayList.remove(position);
