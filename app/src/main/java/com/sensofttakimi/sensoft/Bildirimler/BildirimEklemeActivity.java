@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.sensofttakimi.sensoft.R;
 import com.sensofttakimi.sensoft.UygulamaSayfasi;
 import com.sensofttakimi.sensoft.databinding.ActivityBildirimEklemeBinding;
 
@@ -72,63 +74,122 @@ public class BildirimEklemeActivity extends AppCompatActivity {
 
     }
 
+    public void VerileriEkle(Uri imageData){
+        UUID uuid = UUID.randomUUID();
+        String imageName = "images/"+uuid+".jpg";
+
+        storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                StorageReference newRefrence = firebaseStorage.getReference(imageName);
+                newRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String downloadUrl = uri.toString();
+
+                        String baslik = binding.edtbaslik.getText().toString();
+                        String aciklama = binding.edtaciklama.getText().toString();
+                        String ses = binding.edtkelime.getText().toString();
+
+                        FirebaseUser user = auth.getCurrentUser();
+                        String email = user.getEmail();
+
+
+                        HashMap<String,Object> bildirimVeri = new HashMap<>();
+                        bildirimVeri.put("baslik",baslik);
+                        bildirimVeri.put("aciklama",aciklama);
+                        bildirimVeri.put("ses",ses);
+                        bildirimVeri.put("resim",downloadUrl);
+                        bildirimVeri.put("kullanici",email);
+                        bildirimVeri.put("tarih", "dddd");
+
+                        firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull @NotNull Exception e) {
+                                Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedilemedi",Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(BildirimEklemeActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     public void Kaydet(View view){
         if(imageData !=null){
 
-            UUID uuid = UUID.randomUUID();
-            String imageName = "images/"+uuid+".jpg";
+            VerileriEkle(imageData);
 
-            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    StorageReference newRefrence = firebaseStorage.getReference(imageName);
-                    newRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String downloadUrl = uri.toString();
-
-                            String baslik = binding.edtbaslik.getText().toString();
-                            String aciklama = binding.edtaciklama.getText().toString();
-                            String ses = binding.edtkelime.getText().toString();
-
-                            FirebaseUser user = auth.getCurrentUser();
-                            String email = user.getEmail();
-
-
-                            HashMap<String,Object> bildirimVeri = new HashMap<>();
-                            bildirimVeri.put("baslik",baslik);
-                            bildirimVeri.put("aciklama",aciklama);
-                            bildirimVeri.put("ses",ses);
-                            bildirimVeri.put("resim",downloadUrl);
-                            bildirimVeri.put("kullanici",email);
-                            bildirimVeri.put("tarih", "dddd");
-
-                            firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull @NotNull Exception e) {
-                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedilemedi",Toast.LENGTH_LONG).show();
-
-                                }
-                            });
-
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(BildirimEklemeActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                }
-            });
+//            UUID uuid = UUID.randomUUID();
+//            String imageName = "images/"+uuid+".jpg";
+//
+//            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    StorageReference newRefrence = firebaseStorage.getReference(imageName);
+//                    newRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//                            String downloadUrl = uri.toString();
+//
+//                            String baslik = binding.edtbaslik.getText().toString();
+//                            String aciklama = binding.edtaciklama.getText().toString();
+//                            String ses = binding.edtkelime.getText().toString();
+//
+//                            FirebaseUser user = auth.getCurrentUser();
+//                            String email = user.getEmail();
+//
+//
+//                            HashMap<String,Object> bildirimVeri = new HashMap<>();
+//                            bildirimVeri.put("baslik",baslik);
+//                            bildirimVeri.put("aciklama",aciklama);
+//                            bildirimVeri.put("ses",ses);
+//                            bildirimVeri.put("resim",downloadUrl);
+//                            bildirimVeri.put("kullanici",email);
+//                            bildirimVeri.put("tarih", "dddd");
+//
+//                            firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                @Override
+//                                public void onSuccess(DocumentReference documentReference) {
+//                                    Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull @NotNull Exception e) {
+//                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedilemedi",Toast.LENGTH_LONG).show();
+//
+//                                }
+//                            });
+//
+//                        }
+//                    });
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull @NotNull Exception e) {
+//                    Toast.makeText(BildirimEklemeActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+//                }
+//            });
         }
     }
 
@@ -180,6 +241,12 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                         } catch (Exception e){
                             e.printStackTrace();
                         }*/
+                    }
+                    else{
+                        imageData = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+
+                                "://"+getResources().getResourcePackageName(R.drawable.image_install1)+
+                                '/'+getResources().getResourceTypeName(R.drawable.image_install1)+'/'+
+                                getResources().getResourceEntryName(R.drawable.image_install1));
                     }
                 }
             }
