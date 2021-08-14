@@ -17,6 +17,6 @@
             android:id="@+id/recylerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/krem2"/>
+            android:background="@drawable/arkaplan5"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
