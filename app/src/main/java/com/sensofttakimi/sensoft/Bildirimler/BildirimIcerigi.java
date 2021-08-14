@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,6 +23,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.sensofttakimi.sensoft.R;
 
 import java.util.ArrayList;
@@ -73,22 +76,20 @@ public class BildirimIcerigi extends AppCompatActivity {
                         if(email.equals(data.get("kullanici").toString())){
                             if(baslikID.equals(data.get("baslik"))){
                                 String baslik = (String)  data.get("baslik");
-                                String resim = (String)  data.get("resim");
+                                String resim2 = (String)  data.get("resim");
                                 String tarih = (String)  data.get("tarih");
                                 String aciklama = (String)  data.get("aciklama");
                                 String kelime = (String) data.get("ses");
 
-                                Bildirimler bildirimler = new Bildirimler(baslik, resim, aciklama, tarih,kelime);
+                                Bildirimler bildirimler = new Bildirimler(baslik, resim2, aciklama, tarih,kelime);
                                 bildirimlerArrayList.add(bildirimler);
                             }
                         }
 
                     }
                     if(!bildirimlerArrayList.isEmpty()){
-//                        String resimString = (String) bildirimlerArrayList.get(0).resim;
-//                        byte [] encodeByte = Base64.decode(resimString,Base64.DEFAULT);
-//                        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-
+                        String imageURL = bildirimlerArrayList.get(0).resim;
+                        Glide.with(getApplicationContext()).load(imageURL).placeholder(R.drawable.notification).into(resim);
                         baslik.setText(bildirimlerArrayList.get(0).baslik.toUpperCase());
                         icerik.setText(bildirimlerArrayList.get(0).aciklama);
                         kelime.setText(bildirimlerArrayList.get(0).kelime);
@@ -101,8 +102,6 @@ public class BildirimIcerigi extends AppCompatActivity {
                 }
             }
         });
-
-
 
 
     }
@@ -154,5 +153,18 @@ public class BildirimIcerigi extends AppCompatActivity {
 ////        icerik.setText(bildirimlerArrayList.get(0).aciklama);
 ////        kelime.setText(bildirimlerArrayList.get(0).kelime);
 ////        tarih.setText(bildirimlerArrayList.get(0).tarih);
+    }
+
+    public void Resim(){
+        // Reference to an image file in Cloud Storage
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+// ImageView in your Activity
+
+// Download directly from StorageReference using Glide
+// (See MyAppGlideModule for Loader registration)
+        Glide.with(this /* context */)
+                .load(storageReference)
+                .into(resim);
     }
 }
