@@ -4,8 +4,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ public class BildirimIcerigi extends AppCompatActivity {
     EditText baslik, kelime, icerik;
     String baslikID;
     TextView tarih;
+    ImageView resim;
 
 
 
@@ -40,6 +46,8 @@ public class BildirimIcerigi extends AppCompatActivity {
         kelime = findViewById(R.id.kelime);
         icerik = findViewById(R.id.icerik);
         tarih = findViewById(R.id.tarih);
+        resim = findViewById(R.id.image);
+
 
         Intent intent = getIntent();
         baslikID = intent.getStringExtra("baslik");
@@ -76,10 +84,16 @@ public class BildirimIcerigi extends AppCompatActivity {
 
                     }
                     if(!bildirimlerArrayList.isEmpty()){
+                        String resimString = (String) bildirimlerArrayList.get(0).resim;
+                        byte [] encodeByte = Base64.decode(resimString,Base64.DEFAULT);
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+
                         baslik.setText(bildirimlerArrayList.get(0).baslik.toUpperCase());
                         icerik.setText(bildirimlerArrayList.get(0).aciklama);
                         kelime.setText(bildirimlerArrayList.get(0).kelime);
                         tarih.setText(bildirimlerArrayList.get(0).tarih);
+                        resim.setImageBitmap(bitmap);
+
                     }else {
                         Toast.makeText(getApplicationContext(),"içerik bulunamadı!",Toast.LENGTH_LONG).show();
                     }
