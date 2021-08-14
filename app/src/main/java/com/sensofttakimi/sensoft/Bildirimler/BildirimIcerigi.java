@@ -3,6 +3,7 @@ package com.sensofttakimi.sensoft.Bildirimler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -84,15 +85,15 @@ public class BildirimIcerigi extends AppCompatActivity {
 
                     }
                     if(!bildirimlerArrayList.isEmpty()){
-                        String resimString = (String) bildirimlerArrayList.get(0).resim;
-                        byte [] encodeByte = Base64.decode(resimString,Base64.DEFAULT);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+//                        String resimString = (String) bildirimlerArrayList.get(0).resim;
+//                        byte [] encodeByte = Base64.decode(resimString,Base64.DEFAULT);
+//                        Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 
                         baslik.setText(bildirimlerArrayList.get(0).baslik.toUpperCase());
                         icerik.setText(bildirimlerArrayList.get(0).aciklama);
                         kelime.setText(bildirimlerArrayList.get(0).kelime);
                         tarih.setText(bildirimlerArrayList.get(0).tarih);
-                        resim.setImageBitmap(bitmap);
+                        resim.setImageResource(R.drawable.notification);
 
                     }else {
                         Toast.makeText(getApplicationContext(),"içerik bulunamadı!",Toast.LENGTH_LONG).show();
@@ -109,7 +110,6 @@ public class BildirimIcerigi extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(getApplicationContext(),slm,Toast.LENGTH_LONG).show();
 
     }
 

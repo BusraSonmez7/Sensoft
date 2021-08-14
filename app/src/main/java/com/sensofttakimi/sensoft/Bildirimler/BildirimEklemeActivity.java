@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -63,6 +65,8 @@ public class BildirimEklemeActivity extends AppCompatActivity {
     ActivityResultLauncher<String> permissionLauncher;
     private ActivityBildirimEklemeBinding binding;
     Bitmap selectedImage;
+
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,13 +117,11 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                         bildirimVeri.put("kullanici",email);
                         bildirimVeri.put("tarih", df.format(simdikiZaman));
 
-                        getData();
 
-                        if(isBaslik == true){
                             firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedildi"+" "+isBaslik,Toast.LENGTH_LONG).show();
+                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedildi",Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
@@ -132,12 +134,6 @@ public class BildirimEklemeActivity extends AppCompatActivity {
 
                                 }
                             });
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(),"Daha önce aynı başlıkta bildirim eklemişsiniz. Lütfen farklı bir başlık giriniz!",Toast.LENGTH_LONG).show();
-                        }
-
-
                     }
                 });
 
@@ -151,70 +147,26 @@ public class BildirimEklemeActivity extends AppCompatActivity {
     }
 
     public void Kaydet(View view){
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Kaydediliyor...");
+        dialog.setCancelable(false);
+        dialog.show();
+
+        String baslik = binding.edtbaslik.getText().toString();
         if(this.imageData !=null){
 
-            VerileriEkle(this.imageData);
+            //VerileriEkle(this.imageData);
+            getData(imageData,baslik);
 
-//            UUID uuid = UUID.randomUUID();
-//            String imageName = "images/"+uuid+".jpg";
-//
-//            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    StorageReference newRefrence = firebaseStorage.getReference(imageName);
-//                    newRefrence.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//                            String downloadUrl = uri.toString();
-//
-//                            String baslik = binding.edtbaslik.getText().toString();
-//                            String aciklama = binding.edtaciklama.getText().toString();
-//                            String ses = binding.edtkelime.getText().toString();
-//
-//                            FirebaseUser user = auth.getCurrentUser();
-//                            String email = user.getEmail();
-//
-//
-//                            HashMap<String,Object> bildirimVeri = new HashMap<>();
-//                            bildirimVeri.put("baslik",baslik);
-//                            bildirimVeri.put("aciklama",aciklama);
-//                            bildirimVeri.put("ses",ses);
-//                            bildirimVeri.put("resim",downloadUrl);
-//                            bildirimVeri.put("kullanici",email);
-//                            bildirimVeri.put("tarih", "dddd");
-//
-//                            firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                @Override
-//                                public void onSuccess(DocumentReference documentReference) {
-//                                    Intent intent = new Intent(getApplicationContext(), UygulamaSayfasi.class);
-//                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                    startActivity(intent);
-//                                    finish();
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull @NotNull Exception e) {
-//                                    Toast.makeText(BildirimEklemeActivity.this,"Bildirim kaydedilemedi",Toast.LENGTH_LONG).show();
-//
-//                                }
-//                            });
-//
-//                        }
-//                    });
-//
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull @NotNull Exception e) {
-//                    Toast.makeText(BildirimEklemeActivity.this,e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-//                }
-//            });
+
         }
         else{
             this.imageData = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                     "://" + getResources().getResourcePackageName(R.drawable.notification)
                     + '/' + getResources().getResourceTypeName(R.drawable.notification) + '/' + getResources().getResourceEntryName(R.drawable.notification) );
-            VerileriEkle(imageData);
+            //VerileriEkle(imageData);
+            getData(imageData,baslik);
+            dialog.dismiss();
         }
     }
 
@@ -251,21 +203,6 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                     if(intentFromResult != null){
                         imageData = intentFromResult.getData();
                         binding.resimekle.setImageURI(imageData);
-
-                        /*try{
-
-                            if(Build.VERSION.SDK_INT>=28){
-                                ImageDecoder.Source source = ImageDecoder.createSource(BildirimEklemeActivity.this.getContentResolver(),imageData);
-                                selectedImage = ImageDecoder.decodeBitmap(source);
-                                binding.resimekle.setImageBitmap(selectedImage);
-                            }else{
-                                selectedImage = MediaStore.Images.Media.getBitmap(BildirimEklemeActivity.this.getContentResolver(),imageData);
-                                binding.resimekle.setImageBitmap(selectedImage);
-                            }
-
-                        } catch (Exception e){
-                            e.printStackTrace();
-                        }*/
                     }
                     else{
                         imageData = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+
@@ -291,10 +228,13 @@ public class BildirimEklemeActivity extends AppCompatActivity {
         });
     }
 
-
-    boolean isBaslik;
-    private void getData(){
-        firebaseFirestore.collection("Bildirimler").addSnapshotListener(new EventListener<QuerySnapshot>() {
+    ArrayList<Bildirimler> deneme;
+    boolean yok = false;
+    private void getData(Uri imageData, String baslik){
+        deneme = new ArrayList<>();
+        FirebaseUser user = auth.getCurrentUser();
+        String email = user.getEmail();
+        firebaseFirestore.collection("Bildirimler").whereEqualTo("baslik",baslik).whereEqualTo("kullanici",email).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error !=null){
@@ -302,28 +242,29 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                 }
 
                 if(value != null){
-                    FirebaseUser user = auth.getCurrentUser();
-                    String email = user.getEmail();
-                    String baslik = binding.edtbaslik.getText().toString();
-
-
                     for(DocumentSnapshot snapshot : value.getDocuments()){
                         HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
-                        if(email.equals(data.get("kullanici").toString())){
-                            if(baslik.equals(data.get("baslik").toString())){
-                                isBaslik = false;
-                                break;
-                            }
-                            else {
-                                isBaslik = true;
-                            }
-                        }
-                        else {
+                            String baslik = (String)  data.get("baslik");
+                            String resim = (String)  data.get("resim");
 
-                        }
+                            Bildirimler bildirimler = new Bildirimler(baslik, resim);
+                            deneme.add(bildirimler);
 
                     }
+                    if(!deneme.isEmpty()){
+                        dialog.cancel();
+                        if(!yok){
+                            Toast.makeText(getApplicationContext(),"Bu başlıkta bir bildiriminiz var. Lütfen başlığı değiştirerek tekrar deneyiniz!",Toast.LENGTH_LONG).show();
+                        }
+                        deneme.clear();
+                    }
+                    else {
+                        yok = true;
+                        VerileriEkle(imageData);
+                    }
                 }
+
+
             }
         });
     }
