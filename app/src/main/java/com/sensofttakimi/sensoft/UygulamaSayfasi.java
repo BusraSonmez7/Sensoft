@@ -99,7 +99,7 @@ public class UygulamaSayfasi extends AppCompatActivity {
 
         if(item.getItemId() == R.id.cikis){
             auth.signOut();
-            Intent intent = new Intent(getApplicationContext(),KullaniciGirisi.class);
+            Intent intent = new Intent(getApplicationContext(), KullaniciGirisi.class);
             startActivity(intent);
             finish();
         }

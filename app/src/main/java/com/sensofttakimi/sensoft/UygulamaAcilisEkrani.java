@@ -30,7 +30,7 @@ public class UygulamaAcilisEkrani extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(2000);
-                    Intent intent = new Intent(getApplicationContext(),KullaniciGirisi.class);
+                    Intent intent = new Intent(getApplicationContext(), KullaniciGirisi.class);
                     startActivity(intent);
                     finish();
                 }catch (Exception e){
