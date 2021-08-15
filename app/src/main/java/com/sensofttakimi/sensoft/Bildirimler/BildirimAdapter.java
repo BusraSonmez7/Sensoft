@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.sensofttakimi.sensoft.Model.Bildirimler;
 import com.sensofttakimi.sensoft.databinding.RecyclerRowBinding;
 import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/arkaplan5">
+
+    <RelativeLayout
+        android:id="@+id/mikrofon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/trbeyaz"
+        android:layout_alignParentTop="true"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mesaj_ses"
+            android:background="@android:color/transparent"
+            android:hint="Mikrofona basılı tutun"
+            android:layout_toLeftOf="@+id/btn_gonder2"
+            android:layout_centerVertical="true"/>
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/btn_gonder2"
+            android:background="@drawable/ic_baseline_mic_24"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mikrofon"
+        android:layout_above="@+id/metin"
+        />
+
+    <RelativeLayout
+        android:id="@+id/metin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/trbeyaz"
+        android:layout_alignParentBottom="true"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mesaj_gonder1"
+            android:layout_toLeftOf="@+id/btn_gonder"
+            android:background="@android:color/transparent"
+            android:hint="Söylemek istediğinizi yazın"
+            android:layout_centerVertical="true"/>
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/btn_gonder"
+            android:background="@drawable/ic_baseline_send_24"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</RelativeLayout>
