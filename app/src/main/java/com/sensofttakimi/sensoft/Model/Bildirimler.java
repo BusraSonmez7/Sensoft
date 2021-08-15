@@ -1,4 +1,4 @@
-package com.sensofttakimi.sensoft.Bildirimler;
+package com.sensofttakimi.sensoft.Model;
 
 import com.google.firebase.firestore.FieldValue;
 
