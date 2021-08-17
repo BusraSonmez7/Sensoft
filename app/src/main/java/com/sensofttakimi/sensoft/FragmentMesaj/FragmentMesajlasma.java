@@ -3,6 +3,9 @@ package com.sensofttakimi.sensoft.FragmentMesaj;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -22,11 +25,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 import com.sensofttakimi.sensoft.Bildirimler.BildirimEklemeActivity;
+import com.sensofttakimi.sensoft.KullaniciGirisi;
 import com.sensofttakimi.sensoft.Model.Bildirimler;
 import com.sensofttakimi.sensoft.Model.SohbetIcerigi;
 import com.sensofttakimi.sensoft.R;
@@ -120,8 +126,7 @@ public class FragmentMesajlasma extends Fragment {
         mesajVeri.put("sohbet_baslik",baslik);
         mesajVeri.put("mesaj",mesaj);
         mesajVeri.put("kullanici",email);
-        mesajVeri.put("mesaj_tarih", df.format(simdikiZaman));
-        mesajVeri.put("mesaj_saat", df2.format(simdikiZaman));
+        mesajVeri.put("mesaj_tarih", FieldValue.serverTimestamp());
         mesajVeri.put("rol",rol);
 
 
@@ -152,8 +157,7 @@ public class FragmentMesajlasma extends Fragment {
         mesajVeri.put("sohbet_baslik",baslik);
         mesajVeri.put("mesaj",mesaj);
         mesajVeri.put("kullanici",email);
-        mesajVeri.put("mesaj_tarih", df.format(simdikiZaman));
-        mesajVeri.put("mesaj_saat", df2.format(simdikiZaman));
+        mesajVeri.put("mesaj_tarih", FieldValue.serverTimestamp());
         mesajVeri.put("rol",rol);
 
 
@@ -173,7 +177,7 @@ public class FragmentMesajlasma extends Fragment {
 
     public void MesajGoster(String baslik){
         sohbetIcerigis = new ArrayList<>();
-        firebaseFirestore.collection("SohbetIcerigi").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("SohbetIcerigi").orderBy("mesaj_tarih", Query.Direction.ASCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error !=null){
@@ -188,11 +192,9 @@ public class FragmentMesajlasma extends Fragment {
                         HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
                         if(email.equals(data.get("kullanici").toString()) && baslik.equals(data.get("sohbet_baslik").toString())){
                             String mesaj = (String)  data.get("mesaj");
-                            String tarih = (String)  data.get("mesaj_tarih");
-                            String saat = (String)  data.get("mesaj_saat");
                             String rol = (String)  data.get("rol");
 
-                            SohbetIcerigi sohbetIcerigi = new SohbetIcerigi(email,baslik,mesaj,tarih,saat,rol);
+                            SohbetIcerigi sohbetIcerigi = new SohbetIcerigi(email,baslik,mesaj,rol);
                             sohbetIcerigis.add(sohbetIcerigi);
                         }
                         if(!sohbetIcerigis.isEmpty()){
@@ -200,10 +202,35 @@ public class FragmentMesajlasma extends Fragment {
                             recyclerView.setAdapter(sohbetIcerikAdapter);
                         }
 
-
                     }
                 }
             }
         });
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.menu_mesajlasma, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.kaydet:
+                Intent intent = new Intent(getActivity(),SohbetiKaydetActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+        }
+        return true;
+
     }
 }

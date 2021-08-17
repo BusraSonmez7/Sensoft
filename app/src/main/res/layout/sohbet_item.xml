@@ -28,6 +28,7 @@
         android:id="@+id/sohbet_baslik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_marginLeft="10dp"
         android:layout_toEndOf="@+id/sohbet_resim"
         android:layout_toRightOf="@+id/sohbet_resim"

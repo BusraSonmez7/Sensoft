@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -95,10 +96,6 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         String downloadUrl = uri.toString();
 
-                        Date simdikiZaman = new Date();
-                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                        System.out.println(df.format(simdikiZaman));
-
                         String baslik = binding.edtbaslik.getText().toString();
                         String aciklama = binding.edtaciklama.getText().toString();
                         String ses = binding.edtkelime.getText().toString();
@@ -112,7 +109,7 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                         bildirimVeri.put("ses",ses);
                         bildirimVeri.put("resim",downloadUrl);
                         bildirimVeri.put("kullanici",email);
-                        bildirimVeri.put("tarih", df.format(simdikiZaman));
+                        bildirimVeri.put("tarih", FieldValue.serverTimestamp());
 
 
                             firebaseFirestore.collection("Bildirimler").add(bildirimVeri).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -154,7 +151,6 @@ public class BildirimEklemeActivity extends AppCompatActivity {
 
             //VerileriEkle(this.imageData);
             getData(imageData,baslik);
-
 
         }
         else{

@@ -20,6 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -87,7 +88,7 @@ public class AnasayfaFragment extends Fragment {
     }
 
     private void getData(){
-        firebaseFirestore.collection("Bildirimler").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("Bildirimler").orderBy("tarih", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error !=null){
@@ -97,6 +98,7 @@ public class AnasayfaFragment extends Fragment {
                 if(value != null){
                     FirebaseUser user = auth.getCurrentUser();
                     String email = user.getEmail();
+                    bildirimlerArrayList.clear();
                     for(DocumentSnapshot snapshot : value.getDocuments()){
                         HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
                         if(email.equals(data.get("kullanici").toString())){

@@ -1,5 +1,7 @@
 package com.sensofttakimi.sensoft.Model;
 
+import java.util.Date;
+
 public class Sohbetler {
     private String sohbetId;
     private String sohbet_baslik;
@@ -15,10 +17,22 @@ public class Sohbetler {
         this.kullanici = kullanici;
     }
 
+    public Sohbetler(String sohbet_baslik, String sohbet_resmi) {
+        this.sohbet_baslik = sohbet_baslik;
+        this.sohbet_resmi = sohbet_resmi;
+    }
+
     public Sohbetler(String sohbet_baslik, String sohbet_resmi, String sohbet_tarihi) {
         this.sohbet_baslik = sohbet_baslik;
         this.sohbet_resmi = sohbet_resmi;
         this.sohbet_tarihi = sohbet_tarihi;
+    }
+
+    public Sohbetler(String sohbet_baslik, String sohbet_resmi, String sohbet_tarihi, String kullanici) {
+        this.sohbet_baslik = sohbet_baslik;
+        this.sohbet_resmi = sohbet_resmi;
+        this.sohbet_tarihi = sohbet_tarihi;
+        this.kullanici = kullanici;
     }
 
     public Sohbetler(){
@@ -55,13 +69,5 @@ public class Sohbetler {
 
     public void setSohbet_tarihi(String sohbet_tarihi) {
         this.sohbet_tarihi = sohbet_tarihi;
-    }
-
-    public String getKullanici() {
-        return kullanici;
-    }
-
-    public void setKullanici(String kullanici) {
-        this.kullanici = kullanici;
     }
 }
