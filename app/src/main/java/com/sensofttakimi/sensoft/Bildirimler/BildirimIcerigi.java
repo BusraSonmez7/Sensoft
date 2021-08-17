@@ -90,7 +90,6 @@ public class BildirimIcerigi extends AppCompatActivity {
                         icerik.setText(bildirimlerArrayList.get(0).aciklama);
                         kelime.setText(bildirimlerArrayList.get(0).kelime);
                         tarih.setText(bildirimlerArrayList.get(0).tarih);
-                        resim.setImageResource(R.drawable.notification);
 
                     }else {
                         Toast.makeText(getApplicationContext(),"içerik bulunamadı!",Toast.LENGTH_LONG).show();
