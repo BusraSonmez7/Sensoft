@@ -75,13 +75,13 @@ public class AnasayfaFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        recylerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),BildirimIcerigi.class);
-                startActivity(intent);
-            }
-        });
+//        recylerView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(),BildirimIcerigi.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return mview;
        // return inflater.inflate(R.layout.fragment_anasayfa,container,false);

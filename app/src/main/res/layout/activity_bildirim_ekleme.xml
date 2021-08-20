@@ -34,83 +34,117 @@
                 android:onClick="ResimEkle"
                 app:srcCompat="@drawable/image_install1" />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardElevation="10dp"
+                app:contentPadding="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resimekle">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txtbaslik"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
                 android:text="Bildirim Başlığı"
                 android:textColor="@color/toolbarrenk"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/resimekle" />
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edtbaslik"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:hint="Baslik girin"
                 android:textColor="#2D3030"
                 android:textSize="20dp"
+                android:background="@android:color/transparent"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/txtbaslik"
-                app:layout_constraintStart_toStartOf="@+id/txtbaslik"
-                app:layout_constraintTop_toBottomOf="@+id/txtbaslik" />
+                 />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardElevation="10dp"
+                app:contentPadding="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
                 android:id="@+id/txtaciklama"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="Bildirim İçeriği"
                 android:textColor="@color/toolbarrenk"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtbaslik" />
+                android:textSize="16dp"
+                 />
 
             <EditText
                 android:id="@+id/edtaciklama"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="içerik girin"
                 android:text=""
                 android:textColor="#2D3030"
                 android:textSize="20dp"
+                android:background="@android:color/transparent"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/txtaciklama"
                 app:layout_constraintStart_toStartOf="@+id/txtaciklama"
                 app:layout_constraintTop_toBottomOf="@+id/txtaciklama" />
 
+            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardElevation="10dp"
+                app:contentPadding="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
                 android:id="@+id/txtkelime"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="Algılanması İstenen Kelime veya Cümle"
                 android:textColor="@color/toolbarrenk"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtaciklama" />
+                android:textSize="16dp"
+                />
 
             <EditText
                 android:id="@+id/edtkelime"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Kelime veya cümle girin"
@@ -118,10 +152,12 @@
                 android:textColor="#2D3030"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/txtkelime"
                 app:layout_constraintStart_toStartOf="@+id/txtkelime"
                 app:layout_constraintTop_toBottomOf="@+id/txtkelime" />
-
+            </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewUye"
                 android:layout_width="0dp"
@@ -130,9 +166,9 @@
                 android:elevation="10dp"
                 app:cardBackgroundColor="@color/toolbarrenk"
                 app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/edtkelime"
-                app:layout_constraintStart_toStartOf="@+id/edtkelime"
-                app:layout_constraintTop_toBottomOf="@+id/edtkelime">
+                app:layout_constraintEnd_toEndOf="@+id/cardView4"
+                app:layout_constraintStart_toStartOf="@+id/cardView4"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4">
 
                 <RelativeLayout
                     android:id="@+id/rlt_buton"

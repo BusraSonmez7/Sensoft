@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,9 +22,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.sensofttakimi.sensoft.Model.Bildirimler;
+import com.sensofttakimi.sensoft.Model.Sohbetler;
 import com.sensofttakimi.sensoft.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class BildirimIcerigi extends AppCompatActivity {
@@ -73,12 +77,19 @@ public class BildirimIcerigi extends AppCompatActivity {
                             if(baslikID.equals(data.get("baslik"))){
                                 String baslik = (String)  data.get("baslik");
                                 String resim2 = (String)  data.get("resim");
-                                String tarih = (String)  data.get("tarih");
                                 String aciklama = (String)  data.get("aciklama");
                                 String kelime = (String) data.get("ses");
 
-                                Bildirimler bildirimler = new Bildirimler(baslik, resim2, aciklama, tarih,kelime);
-                                bildirimlerArrayList.add(bildirimler);
+                                if(data.get("tarih") != null){
+                                    Timestamp time = (Timestamp) data.get("tarih");
+                                    Date date = time.toDate();
+                                    String tarih = date.toString();
+                                    String pattern = "dd/MM/yyyy kk:mm";
+                                    SimpleDateFormat format = new SimpleDateFormat(pattern);
+                                    Bildirimler bildirimler = new Bildirimler(baslik, resim2, aciklama, format.format(date),kelime);
+                                    bildirimlerArrayList.add(bildirimler);
+                                }
+
                             }
                         }
 

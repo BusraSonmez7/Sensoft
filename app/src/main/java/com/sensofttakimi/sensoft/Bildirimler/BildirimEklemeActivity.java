@@ -146,6 +146,24 @@ public class BildirimEklemeActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.show();
 
+        if(binding.edtkelime.length()==0)
+        {
+            binding.edtkelime.requestFocus();
+            binding.edtkelime.setError("Bu alan boş geçilemez");
+        }
+
+        if(binding.edtaciklama.length()==0)
+        {
+            binding.edtaciklama.requestFocus();
+            binding.edtaciklama.setError("Bu alan boş geçilemez");
+        }
+
+        if(binding.edtbaslik.length()==0)
+        {
+            binding.edtbaslik.requestFocus();
+            binding.edtbaslik.setError("Bu alan boş geçilemez");
+        }
+
         String baslik = binding.edtbaslik.getText().toString();
         if(this.imageData !=null){
 
