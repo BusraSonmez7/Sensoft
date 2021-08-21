@@ -2,6 +2,8 @@ package com.sensofttakimi.sensoft.FragmentMesaj;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,8 +48,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+
+import static android.app.Activity.RESULT_OK;
 
 public class FragmentMesajlasma extends Fragment {
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     private View mview;
     private RecyclerView recyclerView;
     private ImageButton btnmetin, btnses;
@@ -97,12 +103,12 @@ public class FragmentMesajlasma extends Fragment {
         btnses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                speek();
                 String ses = edtses.getText().toString();
                 if(!ses.isEmpty()){
                     MesajGonder("kaydedilmedi",ses,"ses");
                 }
                 else {
-                    Toast.makeText(getActivity(),"Boş mesaj gönderemezsiniz",Toast.LENGTH_LONG).show();
                 }
                 edtses.setText("");
             }
@@ -113,7 +119,41 @@ public class FragmentMesajlasma extends Fragment {
 
     }
 
-    private void MesajGonder(String baslik, String mesaj,String rol){
+    private void speek(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Karşınızdakini dinlemek için tıklayın");
+        try {
+            startActivityForResult(intent,REQUEST_CODE_SPEECH_INPUT);
+
+        }catch (Exception e){
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case REQUEST_CODE_SPEECH_INPUT:
+                if(resultCode == RESULT_OK && data!=null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    edtses.setText(result.get(0));
+                    String ses = edtses.getText().toString();
+                    if(!ses.isEmpty()){
+                        MesajGonder("kaydedilmedi",ses,"ses");
+                    }
+                    else {
+                    }
+                    edtses.setText("");
+                }
+                break;
+        }
+    }
+
+    private void MesajGonder(String baslik, String mesaj, String rol){
         Date simdikiZaman = new Date();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat df2 = new SimpleDateFormat("kk:mm");

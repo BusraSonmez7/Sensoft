@@ -30,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/list_resim"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:text="BAŞLIK"
-                android:textSize="18dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

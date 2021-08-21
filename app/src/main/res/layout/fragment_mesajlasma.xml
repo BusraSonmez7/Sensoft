@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/mesaj_ses"
             android:background="@android:color/transparent"
-            android:hint="Mikrofona basılı tutun"
+            android:hint="Dinlemek için mikrofona basın"
             android:layout_toLeftOf="@+id/btn_gonder2"
             android:layout_centerVertical="true"/>
         <ImageButton

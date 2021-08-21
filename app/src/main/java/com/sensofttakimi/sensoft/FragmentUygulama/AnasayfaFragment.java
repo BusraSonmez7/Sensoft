@@ -64,7 +64,7 @@ public class AnasayfaFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         getData();
 
-        recylerView.setLayoutManager(new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false));
+        recylerView.setLayoutManager(new GridLayoutManager(getActivity(),4,GridLayoutManager.VERTICAL,false));
         bildirimAdapter = new BildirimAdapter(bildirimlerArrayList,getActivity());
         recylerView.setAdapter(bildirimAdapter);
 
