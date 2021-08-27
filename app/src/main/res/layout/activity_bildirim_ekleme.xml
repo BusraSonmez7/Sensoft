@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Bildirimler.BildirimEklemeActivity"
-    android:background="@color/kutu">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +40,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                app:cardElevation="10dp"
                 app:contentPadding="10dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +77,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                app:cardElevation="10dp"
                 app:contentPadding="10dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +100,6 @@
                 android:id="@+id/edtaciklama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:hint="içerik girin"
                 android:text=""
                 android:textColor="#2D3030"
@@ -122,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                app:cardElevation="10dp"
                 app:contentPadding="10dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +142,6 @@
                 android:id="@+id/edtkelime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:hint="Kelime veya cümle girin"
                 android:text=""
                 android:textColor="#2D3030"
