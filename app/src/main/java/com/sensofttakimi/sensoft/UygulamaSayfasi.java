@@ -30,7 +30,7 @@ import com.sensofttakimi.sensoft.FragmentUygulama.UygulamaSayfasiAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
-public class UygulamaSayfasi extends AppCompatActivity {
+public class UygulamaSayfasi extends AppCompatActivity{
 
     private FirebaseAuth auth;
     private ViewPager viewPager;
@@ -106,7 +106,6 @@ public class UygulamaSayfasi extends AppCompatActivity {
         Intent intent = getIntent();
         String fragmentk = (String) intent.getStringExtra("fragment");
         if(fragmentk==null){
-
         }
         else {
             viewPager.setCurrentItem(2);
@@ -133,7 +132,7 @@ public class UygulamaSayfasi extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.cikis:
                 auth.signOut();
-                Intent intent = new Intent(getApplicationContext(), KullaniciGirisi.class);
+                Intent intent = new Intent(getApplicationContext(), UygulamaAcilisEkrani.class);
                 startActivity(intent);
                 finish();
                 break;

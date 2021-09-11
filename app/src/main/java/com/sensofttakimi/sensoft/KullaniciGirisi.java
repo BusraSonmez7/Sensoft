@@ -65,58 +65,55 @@ public class KullaniciGirisi extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        else{
+            GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
 
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(@NonNull @NotNull ConnectionResult connectionResult) {
 
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+                        }
+                    })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                    .build();
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull @NotNull ConnectionResult connectionResult) {
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
-                .build();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                    user = firebaseAuth.getCurrentUser();
+                    if (user != null) {
 // kullanıcı giriş yaptı
-                    Log.d(tag, "onAuthStateChanged:signed_in:" + user.getUid());
-
-
-
-                } else {
+                        Log.d(tag, "onAuthStateChanged:signed_in:" + user.getUid());
+                    } else {
 // kullanıcı çıkış yaptı
-                    Log.d(tag, "onAuthStateChanged:signed_out");
-                }
+                        Log.d(tag, "onAuthStateChanged:signed_out");
+                    }
 // ...
-            }
-        };
+                }
+            };
 
-        binding.signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            binding.signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
+                }
+            });
 
-                signIn();
-            }
-        });
+            /*
+             *
+             *
+             *
+             *
+             *
+             *
+             * EMAİL VE ŞİFRE GİRİŞİ İLE KAYIT*/
 
-        /*
-        *
-        *
-        *
-        *
-        *
-        *
-        * EMAİL VE ŞİFRE GİRİŞİ İLE KAYIT*/
+        }
 
 
     }

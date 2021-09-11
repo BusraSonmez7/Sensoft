@@ -55,7 +55,6 @@ public class BildirimIcerigi extends AppCompatActivity {
 
         Intent intent = getIntent();
         baslikID = intent.getStringExtra("baslik");
-
         auth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         bildirimlerArrayList = new ArrayList<>();

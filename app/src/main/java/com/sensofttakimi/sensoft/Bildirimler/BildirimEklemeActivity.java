@@ -44,10 +44,7 @@ import com.sensofttakimi.sensoft.databinding.ActivityBildirimEklemeBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -168,7 +165,7 @@ public class BildirimEklemeActivity extends AppCompatActivity {
         if(this.imageData !=null){
 
             //VerileriEkle(this.imageData);
-            getData(imageData,baslik);
+            VeriKontrol(imageData,baslik);
 
         }
         else{
@@ -176,7 +173,7 @@ public class BildirimEklemeActivity extends AppCompatActivity {
                     "://" + getResources().getResourcePackageName(R.drawable.notification)
                     + '/' + getResources().getResourceTypeName(R.drawable.notification) + '/' + getResources().getResourceEntryName(R.drawable.notification) );
             //VerileriEkle(imageData);
-            getData(imageData,baslik);
+            VeriKontrol(imageData,baslik);
             dialog.dismiss();
         }
     }
@@ -241,7 +238,7 @@ public class BildirimEklemeActivity extends AppCompatActivity {
 
     ArrayList<Bildirimler> deneme;
     boolean yok = false;
-    private void getData(Uri imageData, String baslik){
+    private void VeriKontrol(Uri imageData, String baslik){
         deneme = new ArrayList<>();
         FirebaseUser user = auth.getCurrentUser();
         String email = user.getEmail();

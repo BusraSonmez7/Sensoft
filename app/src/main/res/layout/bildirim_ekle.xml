@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="300dp"
+             android:layout_height="wrap_content"
+    android:background="@color/toolbarrenk"
+    android:paddingLeft="21dp"
+    android:paddingRight="21dp"
+    android:paddingBottom="11dp"
+    android:paddingTop="11dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:padding="7dp"
+        android:id="@+id/txtEkle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BİLDİRİM EKLE"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:background="@android:color/transparent"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/resimekle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/image_install1"/>
+
+    <EditText
+        android:id="@+id/edtbaslik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:background="@android:color/white"
+        android:hint="Başlık girin"
+        android:padding="7dp"
+        android:textColor="#2D3030"
+        android:textIsSelectable="false"
+        android:inputType="textCapCharacters"
+        android:textSize="18dp" />
+            <EditText
+                android:id="@+id/edtaciklama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Açıklama girin"
+                android:text=""
+                android:padding="7dp"
+                android:textColor="#2D3030"
+                android:textSize="18dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/edtkelime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Algılanacak kelime veya cümleyi girin.."
+                android:text=""
+                android:padding="7dp"
+                android:textColor="#2D3030"
+                android:textSize="18dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="10dp"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewUye"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:layout_gravity="right"
+        android:background="@color/renk2">
+
+        <RelativeLayout
+            android:id="@+id/rlt_buton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/btnkaydet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="KAYDET"
+                android:textColor="@color/toolbarrenk"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

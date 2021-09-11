@@ -83,5 +83,16 @@ public class SohbetAdapter extends RecyclerView.Adapter<SohbetAdapter.ViewHolder
             sohbet_tarih = itemView.findViewById(R.id.sohbet_tarihi);
             sohbet_resim = itemView.findViewById(R.id.sohbet_resim);
         }
+
+    }
+    public void removeItem(int position) {
+        mSohbetler.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mSohbetler.size());
+    }
+
+    public String BaslikListele(int position){
+        String baslik = mSohbetler.get(position).getSohbet_baslik();
+        return baslik;
     }
 }

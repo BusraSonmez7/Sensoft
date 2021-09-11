@@ -227,13 +227,14 @@ public class SohbetiKaydetActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            int sayac = 0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                int dsayisi = task.getResult().size();
                                 DocumentReference washingtonRef = firebaseFirestore.collection("SohbetIcerigi").document(document.getId());
                                 washingtonRef.update("sohbet_baslik", baslik).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(SohbetiKaydetActivity.this,"mesaj başlığı güncellendi",Toast.LENGTH_LONG).show();
-
+                                                //Toast.makeText(SohbetiKaydetActivity.this,"mesaj başlığı güncellendi",Toast.LENGTH_LONG).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -241,6 +242,9 @@ public class SohbetiKaydetActivity extends AppCompatActivity {
                                             public void onFailure(@NonNull Exception e) {
                                             }
                                         });
+                                sayac++;
+
+                                Toast.makeText(getApplicationContext(),dsayisi+" : "+sayac,Toast.LENGTH_LONG).show();
                             }
                         } else {
                         }
@@ -283,22 +287,31 @@ public class SohbetiKaydetActivity extends AppCompatActivity {
         deneme = new ArrayList<>();
         FirebaseUser user = auth.getCurrentUser();
         String email = user.getEmail();
-        firebaseFirestore.collection("Sohbetler").whereEqualTo("sohbet_baslik",baslik).whereEqualTo("kullanici",email).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firebaseFirestore.collection("SohbetIcerigi").whereEqualTo("sohbet_baslik", baslik).whereEqualTo("kullanici",email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(error !=null){
-                    Toast.makeText(getApplicationContext(),error.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
-                }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int sayac = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        DocumentReference docRef = firebaseFirestore.collection("Sohbetler").document(document.getId());
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        HashMap<String,Object> data = (HashMap<String, Object>) document.getData();
+                                        String baslik = (String)  data.get("baslik");
+                                        String resim = (String)  data.get("resim");
 
-                if(value != null){
-                    for(DocumentSnapshot snapshot : value.getDocuments()){
-                        HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
-                        String baslik = (String)  data.get("baslik");
-                        String resim = (String)  data.get("resim");
-
-                        Bildirimler bildirimler = new Bildirimler(baslik, resim);
-                        deneme.add(bildirimler);
-
+                                        Bildirimler bildirimler = new Bildirimler(baslik, resim);
+                                        deneme.add(bildirimler);
+                                    } else {
+                                    }
+                                } else {
+                                }
+                            }
+                        });
                     }
                     if(!deneme.isEmpty()){
                         dialog.cancel();
@@ -310,11 +323,48 @@ public class SohbetiKaydetActivity extends AppCompatActivity {
                     else {
                         yok = true;
                         VerileriEkle(imageData);
+
                     }
+                } else {
                 }
-
-
             }
         });
+
+
+//        firebaseFirestore.collection("Sohbetler").whereEqualTo("sohbet_baslik",baslik).whereEqualTo("kullanici",email).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if(error !=null){
+//                    Toast.makeText(getApplicationContext(),error.getLocalizedMessage().toString(),Toast.LENGTH_LONG).show();
+//                }
+//
+//                if(value != null){
+//                    for(DocumentSnapshot snapshot : value.getDocuments()){
+//                        HashMap<String,Object> data = (HashMap<String, Object>) snapshot.getData();
+//                        String baslik = (String)  data.get("baslik");
+//                        String resim = (String)  data.get("resim");
+//
+//                        Bildirimler bildirimler = new Bildirimler(baslik, resim);
+//                        deneme.add(bildirimler);
+//
+//                    }
+//                    if(!deneme.isEmpty()){
+//                        dialog.cancel();
+//                        if(!yok){
+//                            Toast.makeText(getApplicationContext(),"Bu başlıkta bir bildiriminiz var. Lütfen başlığı değiştirerek tekrar deneyiniz!",Toast.LENGTH_LONG).show();
+//                        }
+//                        deneme.clear();
+//                    }
+//                    else {
+//                        yok = true;
+//                        VerileriEkle(imageData);
+//
+//                    }
+//                }
+//
+//
+//            }
+//        });
+
     }
 }
